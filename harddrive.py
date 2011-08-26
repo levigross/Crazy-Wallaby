@@ -20,12 +20,13 @@ def fill_io_buffer(num_files):
 
 def _fill_file(fd):
     while True:
-        fd.write('0')
-        fd.flush()
+        fd.write(u'0'*5000)
+
 
 def _read_file(fd):
     while True:
         fd.read(10000)
+        fd.seek(random.randint(1,1000*1000))
         fd.rewind()
 
         

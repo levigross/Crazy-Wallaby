@@ -17,10 +17,8 @@ def fill_io_buffer(num_files):
             events.append(gevent.spawn(_read_file,i))
         for i in events:
             i.join()
-        for i in files:
-            os.remove(i.name)
-            
-
+        gevent.spawn(_remove_files,files)
+    
 def _fill_file(fd):
     while True:
         fd.write(u'0'*5000)
@@ -31,5 +29,9 @@ def _read_file(fd):
         fd.read(10000)
         fd.seek(random.randint(1,1000*1000))
         fd.rewind()
+
+def _remove_files(files):
+    for i in files:
+            os.remove(i.name)
 
         

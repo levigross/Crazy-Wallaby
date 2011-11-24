@@ -20,8 +20,11 @@ def fill_io_buffer(num_files):
         gevent.spawn(_remove_files,files)
     
 def _fill_file(fd):
-    while True:
-        fd.write(u'0'*5000)
+    try:
+        while True:
+            fd.write(u'0'*5000)
+    except Exception:
+        pass
 
 
 def _read_file(fd):
